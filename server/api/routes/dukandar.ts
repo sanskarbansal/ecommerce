@@ -8,10 +8,4 @@ const dukandar = require("../controllers/dukandar");
 router.post("/login", dukandar.login);
 router.post("/signup", dukandar.signup);
 
-router.get("/users", async (req, res) => {
-    const users = await DukandarModel.findAll();
-    console.log((await users[0].getAddress()).toJSON());
-    res.json(users);
-});
-
 export default router;
