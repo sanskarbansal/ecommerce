@@ -2,6 +2,9 @@ import { Form, Input, Button } from "antd";
 import { useFormik } from "formik";
 import DukandarInterface from "../../types/DukandarInterface";
 import { Row, Col, Card } from "antd";
+import axios from "axios";
+import dukandarAPI from "../../api/dukandar";
+const { register } = dukandarAPI;
 
 const initialValues: DukandarInterface = {
     name: "",
@@ -22,13 +25,22 @@ const DukandarRegister = () => {
     const formik = useFormik({
         initialValues,
         onSubmit: (values) => {
-            console.log(values);
+            axios
+                .post(register, {
+                    ...values,
+                })
+                .then((data) => {
+                    if (data.data.dukandar) alert("Now you can login");
+                })
+                .catch((err) => {
+                    alert(err.response.data.error);
+                });
         },
     });
     return (
         <Row className="anm">
             <Col sm={{ span: 16, offset: 4 }} xs={{ span: 24 }}>
-                <Card title="Register">
+                <Card style={{ boxShadow: "#36363657 4px 4px 4px, #cacaca59 -2px -2px 4px" }} title="Register">
                     <Form onFinish={formik.handleSubmit}>
                         <Form.Item
                             label={<span style={{ display: "inline-block", textAlign: "left", minWidth: "100px" }}>Name</span>}
@@ -64,7 +76,7 @@ const DukandarRegister = () => {
                                 },
                             ]}
                         >
-                            <Input type="email" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                            <Input onChange={formik.handleChange} onBlur={formik.handleBlur} />
                         </Form.Item>
                         <Form.Item
                             label={<span style={{ display: "inline-block", textAlign: "left", minWidth: "100px" }}>Phone Number</span>}
@@ -118,7 +130,7 @@ const DukandarRegister = () => {
                                         },
                                     ]}
                                 >
-                                    <Input onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                    <Input type="number" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -150,8 +162,8 @@ const DukandarRegister = () => {
 
                         <Form.Item
                             wrapperCol={{
-                                offset: 8,
-                                span: 16,
+                                offset: 10,
+                                span: 4,
                             }}
                         >
                             <Button type="primary" htmlType="submit">

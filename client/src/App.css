@@ -1,6 +1,10 @@
 .anm {
     animation: slide 0.2s linear 1;
 }
+.homeContainer {
+    border: 2px solid black;
+    background-color: aliceblue;
+}
 
 @keyframes slide {
     from {

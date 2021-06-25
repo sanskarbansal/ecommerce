@@ -1,23 +1,14 @@
-import DukandarInterface from "../../types/DukandarInterface";
 import ActionTypesDukandar from "../action-types/action-types";
 
-interface LoginPaylod {
-    username?: string;
-    password: string;
-    email?: string;
-    phone_no?: string;
+interface UserPaylod {
+    token: string;
+    user: any;
 }
 
-interface SignUpPaylod extends DukandarInterface {}
-
-interface LoginAction {
-    type: ActionTypesDukandar.LOGIN;
-    paylod: LoginPaylod;
-}
-interface SignUpAction {
-    type: ActionTypesDukandar.SIGNUP;
-    paylod: SignUpPaylod;
+interface SetUserAction {
+    type: ActionTypesDukandar.SET_USER;
+    paylod: UserPaylod;
 }
 
-export type Action = LoginAction | SignUpAction;
+export type Action = SetUserAction;
 export { ActionTypesDukandar };

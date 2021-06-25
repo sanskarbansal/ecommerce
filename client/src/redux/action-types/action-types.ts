@@ -1,5 +1,4 @@
 enum ActionTypesDukandar {
-    LOGIN = "LOGIN",
-    SIGNUP = "SIGN_UP",
+    SET_USER = "SET_USER",
 }
 export default ActionTypesDukandar;

@@ -1,6 +1,8 @@
 import { Form, Input, Button } from "antd";
 import { useFormik } from "formik";
 import { Row, Col, Card } from "antd";
+import { useDispatch } from "react-redux";
+import { loginDukandar } from "../../redux/action-creators/dukandar";
 
 const initialValues: { username: string; password: string } = {
     username: "",
@@ -8,16 +10,17 @@ const initialValues: { username: string; password: string } = {
 };
 
 const DukandarLogin = () => {
+    const dispatch = useDispatch();
     const formik = useFormik({
         initialValues,
         onSubmit: (values) => {
-            console.log(values);
+            dispatch(loginDukandar(values));
         },
     });
     return (
         <Row className="anm">
-            <Col sm={{ span: 16, offset: 4 }} xs={{ span: 24 }}>
-                <Card title="Register">
+            <Col sm={{ span: 16, offset: 4 }} style={{ padding: 12 }} xs={{ span: 24 }}>
+                <Card style={{ boxShadow: "#36363657 4px 4px 4px, #cacaca59 -2px -2px 4px" }} title="Register">
                     <Form onFinish={formik.handleSubmit}>
                         <Form.Item
                             style={{ minWidth: "300px" }}
@@ -30,7 +33,7 @@ const DukandarLogin = () => {
                                 },
                             ]}
                         >
-                            <Input type="email" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                            <Input onChange={formik.handleChange} onBlur={formik.handleBlur} />
                         </Form.Item>
 
                         <Form.Item
