@@ -2,23 +2,9 @@ import { Model, DataTypes, Optional, Sequelize, Association, HasOne } from "sequ
 import { UUIDV4 } from "sequelize";
 import sequelize from "../config/db";
 import Address from "./Address";
+import { DukandarInstance } from "./ModelTypes";
 
-interface DukandarAttributes {
-    id: string;
-    name: string;
-    dob?: Date;
-    phone_no: string;
-    email_id: string;
-    username: string;
-    password: string;
-    address?: HasOne;
-}
-
-interface DukandarCreationAttributes extends Optional<DukandarAttributes, "id"> {}
-
-interface DukandarInstance extends Model<DukandarAttributes, DukandarCreationAttributes>, HasOne {}
-
-const DukandarModel = sequelize.define<any>(
+const DukandarModel = sequelize.define<DukandarInstance>(
     "Dukandar",
     {
         id: {
@@ -54,11 +40,14 @@ const DukandarModel = sequelize.define<any>(
         },
     },
     {
-        timestamps: false,
+        timestamps: true,
     }
 );
 
-DukandarModel.hasOne(Address);
+DukandarModel.hasOne(Address, {
+    as: "Address",
+    foreignKey: "DukandarId",
+});
 Address.belongsTo(DukandarModel);
 
 (async () => {

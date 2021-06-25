@@ -2,21 +2,7 @@ import { Model, DataTypes, Optional, Sequelize } from "sequelize";
 import { UUIDV4 } from "sequelize";
 import sequelize from "../config/db";
 import Address from "./Address";
-
-interface GrahakAttributes {
-    id: string;
-    firstName: string;
-    lastName: string;
-    dob?: Date;
-    phone_no: string;
-    email_id: string;
-    username: string;
-    password: string;
-}
-
-interface GrahakCreationAttributes extends Optional<GrahakAttributes, "id"> {}
-
-interface GrahakInstance extends Model<GrahakAttributes, GrahakCreationAttributes>, GrahakAttributes {}
+import { GrahakInstance } from "./ModelTypes";
 
 const GrahakModel = sequelize.define<GrahakInstance>(
     "Grahak",
