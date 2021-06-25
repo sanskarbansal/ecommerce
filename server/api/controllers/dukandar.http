@@ -1,0 +1,22 @@
+POST HTTP://localhost:1337/api/dukandar/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Sanskar", 
+    "dob": "06-07-2001", 
+    "phone_no": "8059976629", 
+    "email_id": "sanskarbnsl75@gmail.com", 
+    "username": "sanskarbansal", 
+    "password": "blahblah", 
+    "city": "Bhiwani", 
+    "state": "Haryana", 
+    "zip_postcode": 127030, 
+    "country": "India"
+}
+
+###
+GET HTTP://localhost:1337/api/dukandar/users HTTP/1.1
+Content-Type: application/json
+
+
+
