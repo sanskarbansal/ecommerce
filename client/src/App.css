@@ -1,0 +1,12 @@
+.anm {
+    animation: slide 0.2s linear 1;
+}
+
+@keyframes slide {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}

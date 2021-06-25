@@ -1782,6 +1782,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/history@*":
+  "integrity" "sha512-S78QIYirQcUoo6UJZx9CSP0O2ix9IaeAXwQi26Rhr/+mg7qqPy8TzaxHSUut7eGjL8WmLccT7/MXf304WjqHcA=="
+  "resolved" "https://registry.npmjs.org/@types/history/-/history-4.7.8.tgz"
+  "version" "4.7.8"
+
 "@types/hoist-non-react-statics@^3.3.0":
   "integrity" "sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA=="
   "resolved" "https://registry.npmjs.org/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz"
@@ -1888,6 +1893,23 @@
     "@types/react" "*"
     "hoist-non-react-statics" "^3.3.0"
     "redux" "^4.0.0"
+
+"@types/react-router-dom@^5.1.7":
+  "integrity" "sha512-D5mHD6TbdV/DNHYsnwBTv+y73ei+mMjrkGrla86HthE4/PVvL1J94Bu3qABU+COXzpL23T1EZapVVpwHuBXiUg=="
+  "resolved" "https://registry.npmjs.org/@types/react-router-dom/-/react-router-dom-5.1.7.tgz"
+  "version" "5.1.7"
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
+    "@types/react-router" "*"
+
+"@types/react-router@*":
+  "integrity" "sha512-z3UlMG/x91SFEVmmvykk9FLTliDvfdIUky4k2rCfXWQ0NKbrP8o9BTCaCTPuYsB8gDkUnUmkcA2vYlm2DR+HAA=="
+  "resolved" "https://registry.npmjs.org/@types/react-router/-/react-router-5.1.15.tgz"
+  "version" "5.1.15"
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
 
 "@types/react@*", "@types/react@^17.0.0":
   "integrity" "sha512-yFRQbD+whVonItSk7ZzP/L+gPTJVBkL/7shLEF+i9GC/1cV3JmUxEQz6+9ylhUpWSDuqo1N9qEvqS6vTj4USUA=="
@@ -2687,6 +2709,13 @@
   "integrity" "sha512-V+Nq70NxKhYt89ArVcaNL9FDryB3vQOd+BFXZIfO3RP6rwtj+2yqqqdHEkacutglPaZLkJeuXKCjCJDMGPtPqg=="
   "resolved" "https://registry.npmjs.org/axe-core/-/axe-core-4.1.2.tgz"
   "version" "4.1.2"
+
+"axios@^0.21.1":
+  "integrity" "sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA=="
+  "resolved" "https://registry.npmjs.org/axios/-/axios-0.21.1.tgz"
+  "version" "0.21.1"
+  dependencies:
+    "follow-redirects" "^1.10.0"
 
 "axobject-query@^2.2.0":
   "integrity" "sha512-Td525n+iPOOyUQIeBfcASuG6uJsDOITl7Mds5gFyerkWiX7qhUTdYUBlSgNMyVqtSJqwpt1kXGLdUt6SykLMRA=="
@@ -5334,7 +5363,7 @@
     "inherits" "^2.0.3"
     "readable-stream" "^2.3.6"
 
-"follow-redirects@^1.0.0":
+"follow-redirects@^1.0.0", "follow-redirects@^1.10.0":
   "integrity" "sha512-6mPTgLxYm3r6Bkkg0vNM0HTjfGrOEtsfbhagQvbxDEsEkpNhw582upBaoRZylzen6krEmxXJgt9Ju6HiI4O7BA=="
   "resolved" "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.13.2.tgz"
   "version" "1.13.2"
@@ -10053,6 +10082,11 @@
   dependencies:
     "indent-string" "^4.0.0"
     "strip-indent" "^3.0.0"
+
+"redux-thunk@^2.3.0":
+  "integrity" "sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw=="
+  "resolved" "https://registry.npmjs.org/redux-thunk/-/redux-thunk-2.3.0.tgz"
+  "version" "2.3.0"
 
 "redux@^4.0.0", "redux@^4.1.0":
   "integrity" "sha512-uI2dQN43zqLWCt6B/BMGRMY6db7TTY4qeHHfGeKb3EOhmOKjU3KdWvNLJyqaHRksv/ErdNH7cFZWg9jXtewy4g=="
