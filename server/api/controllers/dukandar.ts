@@ -24,15 +24,13 @@ const login = async (req: RequestWithUser, res: Response, next: NextFunction) =>
         username: dukandar.phone_no,
         address: (await dukandar?.getAddress()).toJSON(),
     };
-    const token = await jwt.sign(paylod, process.env.JWT_SECRETE || "SECRETE_KEY", {
+    const token = await jwt.sign(paylod, process.env.JWT_SECRETE || "<SECRETE_KEY>", {
         expiresIn: "12hr",
     });
-    res.cookie("token", token, {
-        httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 8,
-    });
+    req.session.data = { ...req.session.data, token };
     res.status(200).json({
         message: "Successfully logged in!",
+        token,
     });
 };
 const signup = async (req: RequestWithUser, res: Response, next: NextFunction) => {

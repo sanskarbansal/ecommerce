@@ -51,8 +51,8 @@ DukandarModel.hasOne(Address, {
 Address.belongsTo(DukandarModel);
 
 (async () => {
-    await DukandarModel.sync({ force: true });
-    await Address.sync({ force: true });
+    await DukandarModel.sync({ alter: true });
+    await Address.sync({ alter: true });
 })();
 
 export default DukandarModel;
