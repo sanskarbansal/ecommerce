@@ -27,17 +27,7 @@ export default function DukandarDashboard() {
         window.localStorage.removeItem("dukandarToken");
         dispatch(logoutDukandar());
     };
-    useEffect(() => {
-        axios
-            .get(api.products(1, 1))
-            .then((res) => {
-                // console.log(res.data);
-                dispatch(setProducts(res.data));
-            })
-            .catch((err) => {
-                if (err.response) console.log(err.response.data);
-            });
-    }, []);
+
     return (
         <Layout>
             <Sider

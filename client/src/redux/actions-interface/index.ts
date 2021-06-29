@@ -8,7 +8,7 @@ interface UserPaylod {
 
 interface ProductPaylod {
     products: Product[];
-    totalPages: number;
+    totalItems: number;
 }
 
 interface SetUserAction {

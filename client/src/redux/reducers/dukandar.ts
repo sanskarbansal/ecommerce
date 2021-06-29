@@ -3,7 +3,7 @@ import { Action, ActionTypesDukandar } from "../actions-interface";
 
 const initialState: any = {
     products: [],
-    totalPages: 0,
+    totalItems: 0,
 };
 const dukandarReducer = (state = initialState, action: Action) => {
     switch (action.type) {
@@ -15,7 +15,7 @@ const dukandarReducer = (state = initialState, action: Action) => {
             return {
                 ...state,
                 products: [...action.paylod.products],
-                totalPages: action.paylod.totalPages,
+                totalItems: action.paylod.totalItems,
             };
         case ActionTypesDukandar.LOGOUT:
             return {

@@ -1,39 +1,51 @@
 import { useDispatch, useSelector } from "react-redux";
-import { List, Avatar, Space } from "antd";
+import { Pagination, Card, Image } from "antd";
+
 import axios from "axios";
 import api from "../../api/dukandar";
 import { setProducts } from "../../redux/action-creators/dukandar";
-import { baseUrl, url } from "../../api/baseUrl";
+import { url } from "../../api/baseUrl";
+import { EditOutlined, EllipsisOutlined, SettingOutlined } from "@ant-design/icons";
+import { useEffect } from "react";
+const { Meta } = Card;
 
 export default function Products() {
     const dukandar = useSelector((state: any) => state.dukandar);
     const dispatch = useDispatch();
-    let { totalPages, products } = dukandar;
+    let { totalItems, products } = dukandar;
+    const limit = 4;
+    useEffect(() => {
+        axios
+            .get(api.products(limit, 1))
+            .then((res) => {
+                dispatch(setProducts(res.data));
+            })
+            .catch((err) => {
+                if (err.response) console.log(err.response.data);
+            });
+    }, []);
     return (
-        <List
-            itemLayout="vertical"
-            size="large"
-            pagination={{
-                onChange: (page) => {
-                    axios.get(api.products(1, page)).then((res) => {
+        <>
+            <div className="d-flex">
+                {products.map((item: any) => (
+                    <Card
+                        style={{ width: 300 }}
+                        cover={<Image width="300px" height="300px" style={{ objectFit: "cover" }} alt={item.name} src={url + "/products/" + item.imageName} />}
+                        actions={[<SettingOutlined key="setting" />, <EditOutlined key="edit" />, <EllipsisOutlined key="ellipsis" />]}
+                    >
+                        <Meta title={item.name} description={item.description} />
+                    </Card>
+                ))}
+            </div>
+            <Pagination
+                onChange={(page) => {
+                    axios.get(api.products(limit, page)).then((res) => {
                         dispatch(setProducts(res.data));
                     });
-                },
-                total: totalPages,
-                pageSize: 1,
-            }}
-            dataSource={products}
-            footer={
-                <div>
-                    <b>ant design</b> footer part
-                </div>
-            }
-            renderItem={(item: any) => (
-                <List.Item key={item.id} extra={<img width={272} alt="logo" src={url + "/products/" + item.imageName} />}>
-                    <List.Item.Meta title={<a href={item.name}>{item.name}</a>} description={item.description} />
-                    {item.content}
-                </List.Item>
-            )}
-        />
+                }}
+                total={totalItems}
+                pageSize={limit}
+            />
+        </>
     );
 }

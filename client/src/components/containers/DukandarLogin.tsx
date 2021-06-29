@@ -14,7 +14,7 @@ const DukandarLogin = () => {
     const formik = useFormik({
         initialValues,
         onSubmit: (values) => {
-            dispatch(loginDukandar(values));
+            loginDukandar(values);
         },
     });
     return (

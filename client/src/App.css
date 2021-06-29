@@ -6,6 +6,14 @@
     background-color: aliceblue;
 }
 
+.d-flex {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space;
+    gap: 10px;
+}
+
 @keyframes slide {
     from {
         transform: scale(0);
