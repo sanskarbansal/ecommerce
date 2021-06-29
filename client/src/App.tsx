@@ -1,20 +1,26 @@
-import React from "react";
-import Routes from "./Routes";
+import Routes from "./components/routes/AppRoutes";
 import "./App.css";
 import "./index.css";
-import { BrowserRouter as Router } from "react-router-dom";
-import { Provider } from "react-redux";
-
-import store from "./redux/store";
+import { useEffect } from "react";
+import jwtDecode from "jwt-decode";
+import { useDispatch } from "react-redux";
+import { setDukandar } from "./redux/action-creators/dukandar";
 
 function App() {
-    return (
-        <Provider store={store}>
-            <Router>
-                <Routes />
-            </Router>
-        </Provider>
-    );
+    const dispatch = useDispatch();
+    useEffect(() => {
+        let token = window.localStorage.getItem("dukandarToken");
+        if (token) {
+            try {
+                const user = jwtDecode(token);
+                if (user) dispatch(setDukandar(token, user));
+            } catch (err) {
+                window.localStorage.removeItem("dukandarToken");
+                return;
+            }
+        }
+    }, [dispatch]);
+    return <Routes />;
 }
 
 export default App;

@@ -4,6 +4,11 @@ import { Dispatch } from "react";
 import dukandarAPI from "../../api/dukandar";
 import { Action, ActionTypesDukandar } from "../actions-interface";
 
+const setDukandar = (token: any, user: any): Action => ({
+    type: ActionTypesDukandar.SET_USER,
+    paylod: { token, user },
+});
+
 const loginDukandar = (values: any) => (dispatch: Dispatch<Action>) => {
     console.log(values);
     axios
@@ -20,11 +25,15 @@ const loginDukandar = (values: any) => (dispatch: Dispatch<Action>) => {
             let token = data.data.token;
             window.localStorage.setItem("dukandarToken", token);
             const user = await jwtDecode(token);
-            dispatch({ type: ActionTypesDukandar.SET_USER, paylod: { token, user } });
+            dispatch(setDukandar(token, user));
         })
         .catch((err) => {
             console.log(err.response.data);
         });
 };
 
-export { loginDukandar };
+const setProducts = (products: any) => ({
+    type: ActionTypesDukandar.SET_PRODUCTS,
+    paylod: products,
+});
+export { loginDukandar, setDukandar, setProducts };

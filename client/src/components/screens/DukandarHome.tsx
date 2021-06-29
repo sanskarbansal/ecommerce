@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import DukandarRegister from "../containers/DukandarRegister";
 import { Row, Col, Radio, Typography } from "antd";
@@ -6,6 +5,7 @@ import DukandarLogin from "../containers/DukandarLogin";
 
 export default function DukandarHome() {
     const [isLogin, setLogin] = useState(false);
+
     return (
         <>
             <Typography.Title level={1} style={{ textAlign: "center", marginBottom: 20 }}>
