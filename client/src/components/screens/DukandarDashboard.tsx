@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Layout, Menu, Button } from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { setDukandar, setProducts } from "../../redux/action-creators/dukandar";
+import { logoutDukandar, setProducts } from "../../redux/action-creators/dukandar";
 import { Link, useRouteMatch } from "react-router-dom";
 import DukandarRoutes from "../routes/DukandarRoutes";
 import { useEffect } from "react";
@@ -25,13 +25,11 @@ export default function DukandarDashboard() {
     };
     const logoutUser = () => {
         window.localStorage.removeItem("dukandarToken");
-        dispatch(setDukandar(null, null));
+        dispatch(logoutDukandar());
     };
     useEffect(() => {
         axios
-            .get(api.products(1, 1), {
-                withCredentials: true,
-            })
+            .get(api.products(1, 1))
             .then((res) => {
                 // console.log(res.data);
                 dispatch(setProducts(res.data));

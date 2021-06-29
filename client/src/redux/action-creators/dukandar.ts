@@ -9,22 +9,20 @@ const setDukandar = (token: any, user: any): Action => ({
     paylod: { token, user },
 });
 
+const logoutDukandar = (): Action => ({
+    type: ActionTypesDukandar.LOGOUT,
+});
+
 const loginDukandar = (values: any) => (dispatch: Dispatch<Action>) => {
-    console.log(values);
     axios
-        .post(
-            dukandarAPI.login,
-            {
-                ...values,
-            },
-            {
-                withCredentials: true,
-            }
-        )
+        .post(dukandarAPI.login, {
+            ...values,
+        })
         .then(async (data) => {
             let token = data.data.token;
             window.localStorage.setItem("dukandarToken", token);
             const user = await jwtDecode(token);
+            console.log(user, token);
             dispatch(setDukandar(token, user));
         })
         .catch((err) => {
@@ -36,4 +34,4 @@ const setProducts = (products: any) => ({
     type: ActionTypesDukandar.SET_PRODUCTS,
     paylod: products,
 });
-export { loginDukandar, setDukandar, setProducts };
+export { loginDukandar, setDukandar, setProducts, logoutDukandar };

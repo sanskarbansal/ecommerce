@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import jwtDecode from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { setDukandar } from "./redux/action-creators/dukandar";
-
 function App() {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -13,7 +12,9 @@ function App() {
         if (token) {
             try {
                 const user = jwtDecode(token);
-                if (user) dispatch(setDukandar(token, user));
+                if (user) {
+                    dispatch(setDukandar(token, user));
+                }
             } catch (err) {
                 window.localStorage.removeItem("dukandarToken");
                 return;

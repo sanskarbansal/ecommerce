@@ -16,10 +16,14 @@ interface SetUserAction {
     paylod: UserPaylod;
 }
 
+interface LogoutDukandar {
+    type: ActionTypesDukandar.LOGOUT;
+}
+
 interface SetProducts {
     type: ActionTypesDukandar.SET_PRODUCTS;
     paylod: ProductPaylod;
 }
 
-export type Action = SetUserAction | SetProducts;
+export type Action = SetUserAction | SetProducts | LogoutDukandar;
 export { ActionTypesDukandar };

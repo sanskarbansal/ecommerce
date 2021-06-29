@@ -15,13 +15,9 @@ export default function Products() {
             size="large"
             pagination={{
                 onChange: (page) => {
-                    axios
-                        .get(api.products(1, page), {
-                            withCredentials: true,
-                        })
-                        .then((res) => {
-                            dispatch(setProducts(res.data));
-                        });
+                    axios.get(api.products(1, page)).then((res) => {
+                        dispatch(setProducts(res.data));
+                    });
                 },
                 total: totalPages,
                 pageSize: 1,
