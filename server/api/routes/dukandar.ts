@@ -2,16 +2,13 @@ import { Response, Router } from "express";
 import { protectRoute } from "../../middlewares/authMiddleware";
 import AddressModel from "../../models/Address";
 import DukandarModel from "../../models/Dukandar";
-import { RequestWithUser } from "../../types/RequstType";
+import { RequestWithUser } from "../../types/RequestType";
 const router = Router();
 
-const dukandar = require("../controllers/dukandar");
+import dukandar from "../controllers/dukandar";
 
 router.post("/login", dukandar.login);
 router.post("/signup", dukandar.signup);
-router.get("/users", protectRoute(DukandarModel), async (req: RequestWithUser, res: Response) => {
-    const users = await DukandarModel.findAll({});
-    res.status(200).json(users);
-});
-
+router.post("/addproduct", protectRoute(DukandarModel), dukandar.addProduct);
+router.get("/products", protectRoute(DukandarModel), dukandar.getProduct);
 export default router;

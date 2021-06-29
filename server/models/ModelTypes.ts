@@ -1,4 +1,12 @@
-import { Model, Optional, HasOne, HasOneCreateAssociationMixin, HasOneGetAssociationMixin } from "sequelize";
+import {
+    Model,
+    Optional,
+    HasOne,
+    HasOneCreateAssociationMixin,
+    HasOneGetAssociationMixin,
+    HasManyCreateAssociationMixin,
+    HasManyGetAssociationsMixin,
+} from "sequelize";
 
 //DUkandar Attribute and Instance Types
 interface DukandarAttributes {
@@ -14,6 +22,8 @@ interface DukandarCreationAttributes extends Optional<DukandarAttributes, "id"> 
 export interface DukandarInstance extends Model<DukandarAttributes, DukandarCreationAttributes>, DukandarAttributes {
     createAddress: HasOneCreateAssociationMixin<AddressAttributes>;
     getAddress: HasOneGetAssociationMixin<AddressInstance>;
+    createProduct: HasManyCreateAssociationMixin<ProductInstance>;
+    getProducts: HasManyGetAssociationsMixin<ProductInstance>;
 }
 
 //Grahak Attribute Types
@@ -43,3 +53,17 @@ interface AddressAttributes {
 interface AddressCreationAttributes extends Optional<AddressAttributes, "line_1"> {}
 
 export interface AddressInstance extends Model<AddressAttributes, AddressCreationAttributes>, AddressAttributes {}
+
+//Product Types
+interface ProductAttributes {
+    id: string;
+    name: string;
+    description?: Date;
+    price: number;
+    mrp: number;
+    imageUrl: string;
+}
+interface ProductCreationAttributes extends Optional<ProductAttributes, "id"> {}
+export interface ProductInstance extends Model<ProductAttributes, ProductCreationAttributes>, ProductAttributes {
+    getDukandar: HasOneGetAssociationMixin<DukandarInstance>;
+}

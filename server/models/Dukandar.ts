@@ -3,6 +3,7 @@ import { UUIDV4 } from "sequelize";
 import sequelize from "../config/db";
 import Address from "./Address";
 import { DukandarInstance } from "./ModelTypes";
+import ProductModel from "./Products";
 
 const DukandarModel = sequelize.define<DukandarInstance>(
     "Dukandar",
@@ -50,8 +51,16 @@ DukandarModel.hasOne(Address, {
 });
 Address.belongsTo(DukandarModel);
 
+DukandarModel.hasMany(ProductModel, {
+    as: "Products",
+});
+ProductModel.belongsTo(DukandarModel, {
+    as: "Dukandar",
+});
+
 (async () => {
     await DukandarModel.sync({ alter: true });
+    await ProductModel.sync({ alter: true });
     await Address.sync({ alter: true });
 })();
 

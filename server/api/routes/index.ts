@@ -1,4 +1,4 @@
 import dukandar from "./dukandar";
 import grahak from "./grahak";
-
-export { dukandar, grahak };
+import product from "./products";
+export { dukandar, grahak, product };
