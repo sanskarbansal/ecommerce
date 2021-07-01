@@ -1,23 +1,26 @@
-import React, { useState } from "react";
-import { Form, Input, Button, Upload } from "antd";
+import { useState } from "react";
+import { Form, Input, Button } from "antd";
 import { useFormik } from "formik";
 import axios from "axios";
 import api from "../../api/dukandar";
 import { useDispatch } from "react-redux";
 import { setProducts } from "../../redux/action-creators/dukandar";
-import { UploadOutlined } from "@ant-design/icons";
+import { useForm } from "antd/lib/form/Form";
+
+const initialValues = {
+    name: "",
+    description: "",
+    price: null,
+    mrp: null,
+};
 
 export default function AddProduct() {
+    const [form] = useForm();
     const [productImage, setProductImage] = useState(null);
     const dispatch = useDispatch();
     const formik = useFormik({
-        initialValues: {
-            name: "",
-            description: "",
-            price: null,
-            mrp: null,
-        },
-        onSubmit: (values: any) => {
+        initialValues,
+        onSubmit: (values: any, actions) => {
             const formData = new FormData();
             for (let key in values) {
                 formData.append(key, values[key]);
@@ -27,14 +30,20 @@ export default function AddProduct() {
             axios
                 .post(api.addProduct, formData)
                 .then((res) => {
-                    dispatch(setProducts([res.data]));
+                    alert("Product Added Successfully");
+                    actions.resetForm();
+                    form.resetFields();
+                    dispatch(setProducts({ products: [res.data] }));
                 })
                 .catch((err) => console.log(err.data));
         },
     });
+    console.log(formik.values);
     return (
         <>
             <Form
+                form={form}
+                initialValues={formik.values}
                 labelCol={{
                     span: 4,
                 }}

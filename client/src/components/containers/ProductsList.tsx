@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Pagination, Card, Image } from "antd";
+import { Pagination, Card, Image, Grid } from "antd";
 
 import axios from "axios";
 import api from "../../api/dukandar";
@@ -13,7 +13,7 @@ export default function Products() {
     const dukandar = useSelector((state: any) => state.dukandar);
     const dispatch = useDispatch();
     let { totalItems, products } = dukandar;
-    const limit = 4;
+    const limit = 6;
     useEffect(() => {
         axios
             .get(api.products(limit, 1))
@@ -33,19 +33,24 @@ export default function Products() {
                         cover={<Image width="300px" height="300px" style={{ objectFit: "cover" }} alt={item.name} src={url + "/products/" + item.imageName} />}
                         actions={[<SettingOutlined key="setting" />, <EditOutlined key="edit" />, <EllipsisOutlined key="ellipsis" />]}
                     >
-                        <Meta title={item.name} description={item.description} />
+                        <h1>{item.name}</h1>
+                        <h2>{item.price}₹</h2>
+                        <span>{item.description}</span>
                     </Card>
                 ))}
             </div>
-            <Pagination
-                onChange={(page) => {
-                    axios.get(api.products(limit, page)).then((res) => {
-                        dispatch(setProducts(res.data));
-                    });
-                }}
-                total={totalItems}
-                pageSize={limit}
-            />
+
+            <div style={{ marginTop: "20px" }}>
+                <Pagination
+                    onChange={(page) => {
+                        axios.get(api.products(limit, page)).then((res) => {
+                            dispatch(setProducts(res.data));
+                        });
+                    }}
+                    total={totalItems}
+                    pageSize={limit}
+                />
+            </div>
         </>
     );
 }

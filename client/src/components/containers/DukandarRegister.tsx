@@ -33,7 +33,7 @@ const DukandarRegister = () => {
                     if (data.data.dukandar) alert("Now you can login");
                 })
                 .catch((err) => {
-                    alert(err.response.data.error);
+                    if (err.response && err.response.data) alert(err.response.data.error);
                 });
         },
     });

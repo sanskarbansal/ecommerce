@@ -2,12 +2,9 @@ import { useState } from "react";
 import { Layout, Menu, Button } from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { logoutDukandar, setProducts } from "../../redux/action-creators/dukandar";
+import { logoutDukandar } from "../../redux/action-creators/dukandar";
 import { Link, useRouteMatch } from "react-router-dom";
 import DukandarRoutes from "../routes/DukandarRoutes";
-import { useEffect } from "react";
-import axios from "axios";
-import api from "../../api/dukandar";
 const { Content, Footer, Sider } = Layout;
 
 const menuItems = [

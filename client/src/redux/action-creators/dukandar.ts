@@ -14,6 +14,7 @@ const logoutDukandar = (): Action => ({
 });
 
 const loginDukandar = (values: any) => (dispatch: Dispatch<Action>) => {
+    console.log("called");
     axios
         .post(dukandarAPI.login, {
             ...values,
