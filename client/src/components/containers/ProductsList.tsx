@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Pagination, Card, Image, Grid } from "antd";
+import { Pagination, Card, Image } from "antd";
 
 import axios from "axios";
 import api from "../../api/dukandar";
@@ -7,7 +7,6 @@ import { setProducts } from "../../redux/action-creators/dukandar";
 import { url } from "../../api/baseUrl";
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from "@ant-design/icons";
 import { useEffect } from "react";
-const { Meta } = Card;
 
 export default function Products() {
     const dukandar = useSelector((state: any) => state.dukandar);
@@ -23,7 +22,7 @@ export default function Products() {
             .catch((err) => {
                 if (err.response) console.log(err.response.data);
             });
-    }, []);
+    }, [dispatch]);
     return (
         <>
             <div className="d-flex">

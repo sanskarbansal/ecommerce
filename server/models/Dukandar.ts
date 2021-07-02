@@ -3,6 +3,7 @@ import { UUIDV4 } from "sequelize";
 import sequelize from "../config/db";
 import Address from "./Address";
 import { DukandarInstance } from "./ModelTypes";
+import ProductFeatureModel from "./ProductFeature";
 import ProductModel from "./Products";
 
 const DukandarModel = sequelize.define<DukandarInstance>(
@@ -23,6 +24,7 @@ const DukandarModel = sequelize.define<DukandarInstance>(
         email_id: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
         },
         username: {
             type: DataTypes.STRING,
@@ -37,7 +39,6 @@ const DukandarModel = sequelize.define<DukandarInstance>(
         password: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
         },
     },
     {
@@ -61,6 +62,7 @@ ProductModel.belongsTo(DukandarModel, {
 (async () => {
     await DukandarModel.sync({ alter: true });
     await ProductModel.sync({ alter: true });
+    ProductFeatureModel.sync({ alter: true });
     await Address.sync({ alter: true });
 })();
 

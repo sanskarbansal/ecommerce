@@ -11,4 +11,5 @@ router.post("/login", dukandar.login);
 router.post("/signup", dukandar.signup);
 router.post("/addproduct", protectRoute(DukandarModel), dukandar.addProduct);
 router.get("/products", protectRoute(DukandarModel), dukandar.getProduct);
+// router.get('/product/:id', pro )
 export default router;

@@ -2,6 +2,7 @@ import { Model, DataTypes, Optional, Sequelize, Association, HasOne } from "sequ
 import { UUIDV4 } from "sequelize";
 import sequelize from "../config/db";
 import { ProductInstance } from "./ModelTypes";
+import ProductFeatureModel from "./ProductFeature";
 
 const ProductModel = sequelize.define<ProductInstance>(
     "Product",
@@ -27,7 +28,7 @@ const ProductModel = sequelize.define<ProductInstance>(
             type: DataTypes.FLOAT,
             allowNull: false,
         },
-        imageUrl: {
+        imageName: {
             type: DataTypes.STRING,
         },
     },
@@ -35,6 +36,16 @@ const ProductModel = sequelize.define<ProductInstance>(
         timestamps: true,
     }
 );
-// (async () => {})();
+
+ProductModel.hasMany(ProductFeatureModel, {
+    as: "ProductFeature",
+});
+ProductFeatureModel.belongsTo(ProductModel, {
+    as: "Product",
+});
+
+(async () => {
+    // ProductModel.sync({ alter: true });
+})();
 
 export default ProductModel;

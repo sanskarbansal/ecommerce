@@ -1,21 +1,19 @@
-import { Layout, Menu, Breadcrumb } from "antd";
-import axios from "axios";
+import { Layout, Menu } from "antd";
 import { useEffect } from "react";
-import api from "../../api/grahak";
 import ProductListGrahak from "../containers/ProductListGrahak";
 
 const { Header, Content, Footer } = Layout;
 
 export default function GrahakHome() {
     useEffect(() => {
-        axios
-            .get(api.getProducts)
-            .then((res) => {
-                console.log(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        // axios
+        //     .get(api.getProducts)
+        //     .then((res) => {
+        //         console.log(res.data);
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //     });
     }, []);
     return (
         <Layout className="layout">
@@ -31,7 +29,7 @@ export default function GrahakHome() {
             <Content style={{ padding: "0 50px" }}>
                 <ProductListGrahak />
             </Content>
-            <Footer style={{ textAlign: "center" }}>Ant Design ©2018 Created by Ant UED</Footer>
+            <Footer style={{ textAlign: "center" }}>Bansal General Store ©2018 Created by Sanskar</Footer>
         </Layout>
     );
 }

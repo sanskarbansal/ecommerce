@@ -8,12 +8,8 @@ import path from "path/posix";
 import { randomBytes } from "crypto";
 import ProductModel from "../../models/Products";
 import DukandarModel from "../../models/Dukandar";
-
-declare module "express-session" {
-    export interface SessionData {
-        data: { [key: string]: any };
-    }
-}
+import { DukandarInstance } from "../../models/ModelTypes";
+import ProductFeatureModel from "../../models/ProductFeature";
 
 const productPath = path.resolve("uploads", "products");
 
@@ -52,7 +48,7 @@ export default {
         const token = jwt.sign(paylod, process.env.JWT_SECRETE || "<SECRETE_KEY>", {
             expiresIn: "12hr",
         });
-        req.session.data = { ...req.session.data, token };
+        // req.session.data = { ...req.session.data, token };
         res.status(200).json({
             message: "Successfully logged in!",
             token,
@@ -60,7 +56,6 @@ export default {
     },
     signup: async (req: RequestWithUser, res: Response, next: NextFunction) => {
         const { name, phone_no, email_id, username, password, city, state, zip_postcode, country, line_1, line_2, dob } = req.body;
-        console.log(req.body);
         if (!name || !phone_no || !email_id || !username || !password || !city || !state || !country || !zip_postcode) {
             return next(new Error("Please provide all the details"));
         }
@@ -72,7 +67,7 @@ export default {
         if (u) {
             return next(new Error("User already Exists"));
         }
-        const dukandar = await Dukandar.create({
+        let dukandar = await Dukandar.create({
             name: name,
             phone_no,
             email_id,
@@ -80,6 +75,8 @@ export default {
             password,
             dob,
         });
+        // console.log("Called", name, phone_no, email_id, password, username, dob);
+
         await dukandar.createAddress({
             city,
             state,
@@ -100,23 +97,34 @@ export default {
         productUpload.single("productImage")(req, res, async (err: any) => {
             if (err) next(err);
             try {
-                const { name, description, price, mrp } = req.body;
+                let { name, description, price, mrp, productFeatures } = req.body;
+                productFeatures = JSON.parse(productFeatures);
                 const product = await dukandar.createProduct({
                     name,
                     description,
                     price,
                     mrp,
-                    imageUrl: path.resolve(productPath, req.file!.filename) || path.resolve(productPath, "default.jpg"),
+                    imageName: req.file!.filename || "default.jpg",
                 });
-                return res.json({ message: "Product Added!" });
+                for (let feature of productFeatures) {
+                    await product.createProductFeature(feature);
+                }
+                return res.json(product);
             } catch (err) {
                 next(err);
             }
         });
     },
     getProduct: async (req: RequestWithUser, res: Response, next: NextFunction) => {
-        const products = await (await Dukandar.findByPk(req.user.id))?.getProducts();
-
-        return res.json(products);
+        let { limit, page }: any = req.query;
+        limit = parseInt(limit) || 5;
+        page = parseInt(page) || 1;
+        const totalItems = await ProductModel.count({
+            where: {
+                DukandarId: req.user.id,
+            },
+        });
+        const products = await (await Dukandar.findByPk(req.user.id))?.getProducts({ offset: (page - 1) * limit, limit });
+        return res.json({ products, totalItems });
     },
 };

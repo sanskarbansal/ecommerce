@@ -6,6 +6,7 @@ import {
     HasOneGetAssociationMixin,
     HasManyCreateAssociationMixin,
     HasManyGetAssociationsMixin,
+    HasManySetAssociationsMixin,
 } from "sequelize";
 
 //DUkandar Attribute and Instance Types
@@ -61,9 +62,22 @@ interface ProductAttributes {
     description?: Date;
     price: number;
     mrp: number;
-    imageUrl: string;
+    imageName: string;
+    DukandarId?: string;
 }
 interface ProductCreationAttributes extends Optional<ProductAttributes, "id"> {}
 export interface ProductInstance extends Model<ProductAttributes, ProductCreationAttributes>, ProductAttributes {
     getDukandar: HasOneGetAssociationMixin<DukandarInstance>;
+    getProductFeature: HasManyGetAssociationsMixin<ProductFeatureInstance>;
+    createProductFeature: HasManyCreateAssociationMixin<ProductFeatureInstance>;
+}
+
+//Feature Types of Products
+interface ProductFeatures {
+    name: string;
+    description?: Date;
+}
+// interface ProductFeatureCreationAttributes extends Optional<ProductFeatures, " "> {}
+export interface ProductFeatureInstance extends Model<ProductFeatures>, ProductAttributes {
+    // getDukandar: HasOneGetAssociationMixin<DukandarInstance>;
 }
