@@ -22,7 +22,8 @@ export default function AddProduct() {
     const onFinish = (values: any) => {
         const formData = new FormData();
         for (let key in values) {
-            if (typeof values[key] === "object") {
+            if (typeof values[key] === "object" && values[key]) {
+                console.log("called");
                 formData.append(key, JSON.stringify(values[key]));
             } else {
                 formData.append(key, values[key]);
@@ -33,7 +34,7 @@ export default function AddProduct() {
         axios
             .post(api.addProduct, formData)
             .then((res) => {
-                alert("Product Added Successfully");
+                // alert("Product Added Successfully");
                 form.resetFields();
                 dispatch(setProducts({ products: [res.data] }));
             })

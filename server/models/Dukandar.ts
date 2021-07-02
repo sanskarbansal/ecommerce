@@ -62,7 +62,7 @@ ProductModel.belongsTo(DukandarModel, {
 (async () => {
     await DukandarModel.sync({ alter: true });
     await ProductModel.sync({ alter: true });
-    ProductFeatureModel.sync({ alter: true });
+    await ProductFeatureModel.sync({ alter: true });
     await Address.sync({ alter: true });
 })();
 

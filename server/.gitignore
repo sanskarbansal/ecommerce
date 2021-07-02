@@ -1,2 +1,3 @@
 node_modules
-/uploads/products
+/uploads/
+.DS_Store

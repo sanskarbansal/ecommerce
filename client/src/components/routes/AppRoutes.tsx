@@ -4,6 +4,7 @@ import ProtectedRoute from "../common/ProtectedRoute";
 import RedirectLoggedIn from "../common/RedirectLoggedIn";
 import DukandarDashboard from "../screens/DukandarDashboard";
 import GrahakHome from "../screens/GrahakHome";
+import Product from "../common/Product";
 
 export default function Routes() {
     return (
@@ -17,7 +18,7 @@ export default function Routes() {
             <Route path="/dukandar/">
                 <Redirect to="/dukandar/home" />
             </Route>
-            <Route exact path="/">
+            <Route path="/">
                 <GrahakHome />
             </Route>
         </Switch>

@@ -98,7 +98,6 @@ export default {
             if (err) next(err);
             try {
                 let { name, description, price, mrp, productFeatures } = req.body;
-                productFeatures = JSON.parse(productFeatures);
                 const product = await dukandar.createProduct({
                     name,
                     description,
@@ -106,9 +105,13 @@ export default {
                     mrp,
                     imageName: req.file!.filename || "default.jpg",
                 });
-                for (let feature of productFeatures) {
-                    await product.createProductFeature(feature);
+                if (productFeatures != "undefined") {
+                    productFeatures = JSON.parse(productFeatures);
+                    for (let feature of productFeatures) {
+                        await product.createProductFeature(feature);
+                    }
                 }
+
                 return res.json(product);
             } catch (err) {
                 next(err);
