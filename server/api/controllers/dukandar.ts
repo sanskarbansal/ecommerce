@@ -116,7 +116,7 @@ export default {
         });
     },
     getProduct: async (req: RequestWithUser, res: Response, next: NextFunction) => {
-        const { onlyNames } = req.query;
+        const { onlyNames, stock } = req.query;
         let { limit, page }: any = req.query;
         limit = parseInt(limit) || 5;
         page = parseInt(page) || 1;
@@ -127,7 +127,9 @@ export default {
         });
         let products;
         if (onlyNames === "1") {
-            products = await (await Dukandar.findByPk(req.user.id))?.getProducts({ attributes: ["name", "id"] });
+            const attributes = ["name", "id"];
+            stock ? attributes.push("inStock") : null;
+            products = await (await Dukandar.findByPk(req.user.id))?.getProducts({ attributes });
         } else {
             products = await (await Dukandar.findByPk(req.user.id))?.getProducts({ offset: (page - 1) * limit, limit });
         }

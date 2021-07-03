@@ -12,6 +12,7 @@ const menuItems = [
     { menuUrl: "/addProduct", title: "Add Product", key: "addProduct" },
     { menuUrl: "/viewOrders", title: "View Order", key: "viewOrder" },
     { menuUrl: "/maintainStock", title: "Maintain Stock", key: "maintainStock" },
+    { menuUrl: "/viewStock", title: "View Stock", key: "viewStock" },
 ];
 
 export default function DukandarDashboard() {
