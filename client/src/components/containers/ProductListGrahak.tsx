@@ -1,56 +1,60 @@
 import React from "react";
 
-import { Pagination, Image, Card, Typography } from "antd";
+import { Pagination, Card, Typography } from "antd";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 import axios from "axios";
 import api from "../../api/grahak";
 import { url as apiUrl } from "../../api/baseUrl";
+import { useCallback } from "react";
 
 export default function ProductListGrahak() {
     const [products, setProducts] = useState([]);
     const [totalItems, setTotalItems] = useState(0);
-    const [limit, setlimit] = useState(4);
+    const [limit, setlimit] = useState(9);
     const { url } = useRouteMatch();
 
-    const handleGetProducts = (page = 1) => {
-        axios
-            .get(api.getProducts(page, limit))
-            .then((res) => {
-                setProducts(res.data.rows);
-                setTotalItems(res.data.count);
-            })
-            .catch((err) => {
-                console.log(err.response);
-            });
-    };
-    useEffect(() => {
-        handleGetProducts(1);
-    }, [limit]);
+    const handleGetProducts = useCallback(
+        (page = 1) => {
+            (() => {
+                axios
+                    .get(api.getProducts(page, limit))
+                    .then((res) => {
+                        setProducts(res.data.rows);
+                        setTotalItems(res.data.count);
+                    })
+                    .catch((err) => {
+                        console.log(err.response);
+                    });
+            })();
+        },
+        [limit]
+    );
 
     useEffect(() => {
-        handleGetProducts();
-    }, []);
-    console.log(url);
+        handleGetProducts(1);
+    }, [limit, handleGetProducts]);
+
     return (
         <>
             <div className="d-flex" style={{ marginTop: "20px", justifyContent: "center" }}>
                 {products.map((item: any) => (
-                    <Card
-                        style={{ width: 350, maxHeight: 800 }}
-                        cover={
-                            <Image width="300px" height="300px" style={{ objectFit: "cover" }} alt={item.name} src={apiUrl + "/products/" + item.imageName} />
-                        }
-                    >
-                        <Link to={`/product/${item.id}`}>
+                    <Link to={`/product/${item.id}`}>
+                        <Card
+                            key={item.id}
+                            style={{ width: 350, maxHeight: 800 }}
+                            cover={
+                                <img width="300px" height="300px" style={{ objectFit: "cover" }} alt={item.name} src={apiUrl + "/products/" + item.imageName} />
+                            }
+                        >
                             <h1>{item.name}</h1>
                             <h2>{item.price}₹</h2>
                             <Typography.Text style={{ maxWidth: "100%" }} ellipsis={true}>
                                 {item.description}
                             </Typography.Text>
-                        </Link>
-                    </Card>
+                        </Card>
+                    </Link>
                 ))}
             </div>
             <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
@@ -60,6 +64,7 @@ export default function ProductListGrahak() {
                     }}
                     total={totalItems}
                     pageSize={limit}
+                    pageSizeOptions={["3", "9", "27", "81"]}
                     onChange={(page) => {
                         handleGetProducts(page);
                     }}

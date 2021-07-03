@@ -1,12 +1,10 @@
 import axios from "axios";
-import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useRouteMatch } from "react-router-dom";
 import api from "../../api/grahak";
 import { Row, Col, Image, Spin, Button, List, Card, Typography } from "antd";
 import { url } from "../../api/baseUrl";
-import Item from "antd/lib/list/Item";
 
 interface Dukandar {
     id: string;
@@ -22,18 +20,7 @@ interface Feature {
     ProductId: string;
 }
 
-const columns = [
-    {
-        title: "Name",
-        dataIndex: "name",
-    },
-    {
-        title: "Description",
-        dataIndex: "description",
-    },
-];
-
-interface Product {
+interface ProductType {
     id: string;
     name: string;
     description: string;
@@ -48,7 +35,7 @@ interface Product {
 export default function Product() {
     const { params }: { params: any } = useRouteMatch();
     const [loading, setloading] = useState(true);
-    const [product, setproduct]: [Product, any] = useState({
+    const [product, setproduct]: [ProductType, any] = useState({
         id: "",
         name: "",
         description: "",
@@ -65,6 +52,8 @@ export default function Product() {
         },
         ProductFeature: [],
     });
+    const { id } = params;
+
     useEffect(() => {
         axios
             .get(api.getProduct + id)
@@ -75,9 +64,7 @@ export default function Product() {
             .catch((err) => {
                 console.log(err.response.data);
             });
-    }, []);
-    const { id } = params;
-    console.log(id);
+    }, [id]);
     return (
         <>
             {loading ? (
