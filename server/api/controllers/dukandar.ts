@@ -127,7 +127,7 @@ export default {
         });
         let products;
         if (onlyNames === "1") {
-            products = await (await Dukandar.findByPk(req.user.id))?.getProducts({ offset: (page - 1) * limit, limit, attributes: ["name", "id"] });
+            products = await (await Dukandar.findByPk(req.user.id))?.getProducts({ attributes: ["name", "id"] });
         } else {
             products = await (await Dukandar.findByPk(req.user.id))?.getProducts({ offset: (page - 1) * limit, limit });
         }
@@ -139,10 +139,11 @@ export default {
             try {
                 productIds = JSON.parse(productIds);
             } finally {
+                console.log(productIds);
                 for (let p of productIds) {
                     const product = await ProductModel.findByPk(p.id);
                     if (product && product.DukandarId == req.user.id) {
-                        product.inStock += p.value;
+                        product.inStock += parseInt(p.value);
                         product.save();
                     }
                 }

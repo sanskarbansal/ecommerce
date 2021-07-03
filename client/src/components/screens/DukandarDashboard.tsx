@@ -11,6 +11,7 @@ const menuItems = [
     { menuUrl: "", title: "Home", key: "home" },
     { menuUrl: "/addProduct", title: "Add Product", key: "addProduct" },
     { menuUrl: "/viewOrders", title: "View Order", key: "viewOrder" },
+    { menuUrl: "/maintainStock", title: "Maintain Stock", key: "maintainStock" },
 ];
 
 export default function DukandarDashboard() {
@@ -56,7 +57,7 @@ export default function DukandarDashboard() {
                         <DukandarRoutes />
                     </div>
                 </Content>
-                <Footer style={{ textAlign: "center" }}>Made with ❤️ love</Footer>
+                <Footer style={{ textAlign: "center" }}>Made by Sanskar</Footer>
             </Layout>
         </Layout>
     );
