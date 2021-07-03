@@ -7,9 +7,6 @@ import multer, { Field } from "multer";
 import path from "path/posix";
 import { randomBytes } from "crypto";
 import ProductModel from "../../models/Products";
-import DukandarModel from "../../models/Dukandar";
-import { DukandarInstance } from "../../models/ModelTypes";
-import ProductFeatureModel from "../../models/ProductFeature";
 
 const productPath = path.resolve("uploads", "products");
 
@@ -119,6 +116,7 @@ export default {
         });
     },
     getProduct: async (req: RequestWithUser, res: Response, next: NextFunction) => {
+        const { onlyNames } = req.query;
         let { limit, page }: any = req.query;
         limit = parseInt(limit) || 5;
         page = parseInt(page) || 1;
@@ -127,7 +125,34 @@ export default {
                 DukandarId: req.user.id,
             },
         });
-        const products = await (await Dukandar.findByPk(req.user.id))?.getProducts({ offset: (page - 1) * limit, limit });
+        let products;
+        if (onlyNames === "1") {
+            products = await (await Dukandar.findByPk(req.user.id))?.getProducts({ offset: (page - 1) * limit, limit, attributes: ["name", "id"] });
+        } else {
+            products = await (await Dukandar.findByPk(req.user.id))?.getProducts({ offset: (page - 1) * limit, limit });
+        }
         return res.json({ products, totalItems });
+    },
+    maintainStock: async (req: RequestWithUser, res: Response, next: NextFunction) => {
+        try {
+            let { productIds } = req.body;
+            try {
+                productIds = JSON.parse(productIds);
+            } finally {
+                for (let p of productIds) {
+                    const product = await ProductModel.findByPk(p.id);
+                    if (product && product.DukandarId == req.user.id) {
+                        product.inStock += p.value;
+                        product.save();
+                    }
+                }
+                return res.json({
+                    message: "Products Stock Maintained Successfully",
+                    status: 1,
+                });
+            }
+        } catch (err) {
+            return next(err);
+        }
     },
 };

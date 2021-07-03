@@ -64,6 +64,7 @@ interface ProductAttributes {
     mrp: number;
     imageName: string;
     DukandarId?: string;
+    inStock: number;
 }
 interface ProductCreationAttributes extends Optional<ProductAttributes, "id"> {}
 export interface ProductInstance extends Model<ProductAttributes, ProductCreationAttributes>, ProductAttributes {

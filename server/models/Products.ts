@@ -31,6 +31,10 @@ const ProductModel = sequelize.define<ProductInstance>(
         imageName: {
             type: DataTypes.STRING,
         },
+        inStock: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+        },
     },
     {
         timestamps: true,

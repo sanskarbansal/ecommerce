@@ -9,6 +9,7 @@ export default {
         limit = parseInt(limit) || 5;
         page = parseInt(page) || 1;
         const products = await ProductModel.findAndCountAll({
+            order: [["inStock", "DESC"]],
             limit,
             offset: (page - 1) * limit,
             include: {
