@@ -38,9 +38,13 @@ interface GrahakAttributes {
     email_id: string;
     username: string;
     password: string;
+    Address?: AddressAttributes;
 }
 interface GrahakCreationAttributes extends Optional<GrahakAttributes, "id"> {}
-export interface GrahakInstance extends Model<GrahakAttributes, GrahakCreationAttributes>, GrahakAttributes {}
+export interface GrahakInstance extends Model<GrahakAttributes, GrahakCreationAttributes>, GrahakAttributes {
+    getAddress: HasManyGetAssociationsMixin<AddressInstance>;
+    createAddress: HasManyCreateAssociationMixin<AddressInstance>;
+}
 
 //Address Attribute Types;
 interface AddressAttributes {

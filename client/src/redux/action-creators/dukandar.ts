@@ -2,19 +2,19 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { Dispatch } from "react";
 import dukandarAPI from "../../api/dukandar";
-import { Action, ActionTypesDukandar } from "../actions-interface";
+import setExpiration from "../../utils/maintainSession";
+import { ActionDukandar, ActionTypesDukandar } from "../actions-interface";
 
-const setDukandar = (token: any, user: any): Action => ({
+const setDukandar = (token: any, user: any): ActionDukandar => ({
     type: ActionTypesDukandar.SET_USER,
     paylod: { token, user },
 });
 
-const logoutDukandar = (): Action => ({
+const logoutDukandar = (): ActionDukandar => ({
     type: ActionTypesDukandar.LOGOUT,
 });
 
-const loginDukandar = (values: any) => (dispatch: Dispatch<Action>) => {
-    console.log("called");
+const loginDukandar = (values: any) => (dispatch: Dispatch<ActionDukandar>) => {
     axios
         .post(dukandarAPI.login, {
             ...values,
@@ -23,7 +23,9 @@ const loginDukandar = (values: any) => (dispatch: Dispatch<Action>) => {
             let token = data.data.token;
             window.localStorage.setItem("dukandarToken", token);
             const user = await jwtDecode(token);
-            console.log(user, token);
+            setExpiration("dukandarToken", user, dispatch, () => {
+                console.log("Expiration set");
+            });
             dispatch(setDukandar(token, user));
         })
         .catch((err) => {
@@ -31,7 +33,7 @@ const loginDukandar = (values: any) => (dispatch: Dispatch<Action>) => {
         });
 };
 
-const setProducts = (products: any) => ({
+const setProducts = (products: any): ActionDukandar => ({
     type: ActionTypesDukandar.SET_PRODUCTS,
     paylod: products,
 });

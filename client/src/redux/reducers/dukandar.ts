@@ -1,11 +1,11 @@
 import axios from "axios";
-import { Action, ActionTypesDukandar } from "../actions-interface";
+import { ActionDukandar, ActionTypesDukandar } from "../actions-interface";
 
 const initialState: any = {
     products: [],
     totalItems: 0,
 };
-const dukandarReducer = (state = initialState, action: Action) => {
+const dukandarReducer = (state = initialState, action: ActionDukandar) => {
     switch (action.type) {
         case ActionTypesDukandar.SET_USER:
             let token = action.paylod.token;

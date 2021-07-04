@@ -28,6 +28,7 @@ export default function Products() {
             <div className="d-flex">
                 {products.map((item: any) => (
                     <Card
+                        key={item.id}
                         style={{ width: 300 }}
                         cover={<Image width="300px" height="300px" style={{ objectFit: "cover" }} alt={item.name} src={url + "/products/" + item.imageName} />}
                         actions={[<SettingOutlined key="setting" />, <EditOutlined key="edit" />, <EllipsisOutlined key="ellipsis" />]}

@@ -1,29 +1,6 @@
-import Product from "../../types/Product";
-import ActionTypesDukandar from "../action-types/action-types";
-
-interface UserPaylod {
-    token: string;
-    user: any;
-}
-
-interface ProductPaylod {
-    products: Product[];
-    totalItems: number;
-}
-
-interface SetUserAction {
-    type: ActionTypesDukandar.SET_USER;
-    paylod: UserPaylod;
-}
-
-interface LogoutDukandar {
-    type: ActionTypesDukandar.LOGOUT;
-}
-
-interface SetProducts {
-    type: ActionTypesDukandar.SET_PRODUCTS;
-    paylod: ProductPaylod;
-}
-
-export type Action = SetUserAction | SetProducts | LogoutDukandar;
-export { ActionTypesDukandar };
+import { ActionTypesDukandar, ActionTypesGrahak } from "../action-types/action-types";
+import * as DukandarActions from "./dukandar-interface";
+import * as GrahakActions from "./grahak-interface";
+export type ActionDukandar = DukandarActions.SetUserAction | DukandarActions.SetProducts | DukandarActions.LogoutDukandar;
+export type ActionGrahak = GrahakActions.SetUserAction;
+export { ActionTypesDukandar, ActionTypesGrahak };

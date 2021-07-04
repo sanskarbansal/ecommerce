@@ -3,7 +3,7 @@ import React from "react";
 import { Pagination, Card, Typography } from "antd";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import api from "../../api/grahak";
 import { url as apiUrl } from "../../api/baseUrl";
@@ -13,7 +13,6 @@ export default function ProductListGrahak() {
     const [products, setProducts] = useState([]);
     const [totalItems, setTotalItems] = useState(0);
     const [limit, setlimit] = useState(9);
-    const { url } = useRouteMatch();
 
     const handleGetProducts = useCallback(
         (page = 1) => {

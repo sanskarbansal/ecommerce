@@ -1,4 +1,4 @@
-import { Model, DataTypes, Optional, Sequelize } from "sequelize";
+import { DataTypes } from "sequelize";
 import { UUIDV4 } from "sequelize";
 import sequelize from "../config/db";
 import Address from "./Address";
@@ -10,6 +10,7 @@ const GrahakModel = sequelize.define<GrahakInstance>(
         id: {
             primaryKey: true,
             type: DataTypes.UUID,
+            defaultValue: UUIDV4,
         },
         dob: {
             type: DataTypes.DATE,
@@ -47,7 +48,9 @@ const GrahakModel = sequelize.define<GrahakInstance>(
     }
 );
 
-GrahakModel.hasMany(Address);
+GrahakModel.hasMany(Address, {
+    as: "Address",
+});
 Address.belongsTo(GrahakModel);
 
 GrahakModel.sync({

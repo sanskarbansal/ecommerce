@@ -10,9 +10,7 @@ import { useRef } from "react";
 export default function ViewStock() {
     const [products, setProducts] = useState([]);
     const searchInput: any = useRef(null);
-    const onChange = (pagination: any, filters: any, sorter: any, extra: any) => {
-        console.log("params", pagination, filters, sorter, extra);
-    };
+    const onChange = (pagination: any, filters: any, sorter: any, extra: any) => {};
     const [state, setState] = useState({
         searchText: "",
         searchedColumn: "",
@@ -36,10 +34,7 @@ export default function ViewStock() {
         {
             title: "Product Name",
             dataIndex: "name",
-            sorter: {
-                compare: (a: any, b: any) => a.name - b.name,
-                multiple: 1,
-            },
+
             filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }: any) => (
                 <div style={{ padding: 8 }}>
                     <Input
@@ -118,5 +113,5 @@ export default function ViewStock() {
                 console.log(err.response.data);
             });
     }, []);
-    return <Table columns={columns} dataSource={products} onChange={onChange} />;
+    return <Table rowKey={(record) => record.id} columns={columns} dataSource={products} />;
 }
