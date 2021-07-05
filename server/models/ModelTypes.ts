@@ -1,12 +1,14 @@
 import {
     Model,
     Optional,
-    HasOne,
     HasOneCreateAssociationMixin,
     HasOneGetAssociationMixin,
     HasManyCreateAssociationMixin,
     HasManyGetAssociationsMixin,
-    HasManySetAssociationsMixin,
+    HasManyAddAssociationMixin,
+    ManyToManyOptions,
+    HasManyAddAssociationMixinOptions,
+    BelongsToManyAddAssociationMixin,
 } from "sequelize";
 
 //DUkandar Attribute and Instance Types
@@ -44,6 +46,8 @@ interface GrahakCreationAttributes extends Optional<GrahakAttributes, "id"> {}
 export interface GrahakInstance extends Model<GrahakAttributes, GrahakCreationAttributes>, GrahakAttributes {
     getAddress: HasManyGetAssociationsMixin<AddressInstance>;
     createAddress: HasManyCreateAssociationMixin<AddressInstance>;
+    createCart: HasOneCreateAssociationMixin<CartInstance>;
+    getCart: HasOneGetAssociationMixin<any>;
 }
 
 //Address Attribute Types;
@@ -85,4 +89,14 @@ interface ProductFeatures {
 // interface ProductFeatureCreationAttributes extends Optional<ProductFeatures, " "> {}
 export interface ProductFeatureInstance extends Model<ProductFeatures>, ProductAttributes {
     // getDukandar: HasOneGetAssociationMixin<DukandarInstance>;
+}
+
+//DUkandar Attribute and Instance Types
+interface CartAttributes {
+    id: string;
+}
+interface CartCreationAttributes extends Optional<CartAttributes, "id"> {}
+export interface CartInstance extends Model<CartAttributes, CartCreationAttributes>, CartAttributes {
+    addProduct: BelongsToManyAddAssociationMixin<ProductInstance, any>;
+    getProducts: HasManyGetAssociationsMixin<ProductInstance>;
 }

@@ -2,6 +2,7 @@ import { DataTypes } from "sequelize";
 import { UUIDV4 } from "sequelize";
 import sequelize from "../config/db";
 import Address from "./Address";
+import CartModel from "./Cart";
 import { GrahakInstance } from "./ModelTypes";
 
 const GrahakModel = sequelize.define<GrahakInstance>(
@@ -51,9 +52,22 @@ const GrahakModel = sequelize.define<GrahakInstance>(
 GrahakModel.hasMany(Address, {
     as: "Address",
 });
-Address.belongsTo(GrahakModel);
-
-GrahakModel.sync({
-    alter: true,
+Address.belongsTo(GrahakModel, {
+    as: "Grahak",
 });
+
+GrahakModel.hasOne(CartModel, {
+    as: "Cart",
+    foreignKey: "GrahakId",
+});
+CartModel.belongsTo(GrahakModel, {
+    as: "Grahak",
+});
+
+(async () => {
+    // CartModel.sync({ force: true });
+    // GrahakModel.sync({ force: true });
+    // Address.sync({ alter: true });
+})();
+
 export default GrahakModel;

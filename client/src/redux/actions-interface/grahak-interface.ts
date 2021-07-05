@@ -8,3 +8,7 @@ export interface SetUserAction {
     type: ActionTypesGrahak.SET_USER;
     paylod: UserPaylod;
 }
+
+export interface LogoutAction {
+    type: ActionTypesGrahak.LOGOUT;
+}

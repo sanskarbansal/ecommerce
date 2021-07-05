@@ -8,6 +8,8 @@ const dukandarReducer = (state = initialState, action: ActionGrahak) => {
                 ...state,
                 ...action.paylod,
             };
+        case ActionTypesGrahak.LOGOUT:
+            return { ...initialState };
         default:
             return state;
     }

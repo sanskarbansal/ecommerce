@@ -26,4 +26,8 @@ const loginGrahak = (values: any) => (dispatch: Dispatch<ActionGrahak>) => {
         });
 };
 
-export { loginGrahak, setGrahak };
+const logoutGrahak = () => ({
+    type: ActionTypesGrahak.LOGOUT,
+});
+
+export { loginGrahak, setGrahak, logoutGrahak };

@@ -1,9 +1,8 @@
-import { Model, DataTypes, Optional, Sequelize, Association, HasOne } from "sequelize";
+import { DataTypes } from "sequelize";
 import { UUIDV4 } from "sequelize";
 import sequelize from "../config/db";
 import Address from "./Address";
 import { DukandarInstance } from "./ModelTypes";
-import ProductFeatureModel from "./ProductFeature";
 import ProductModel from "./Products";
 
 const DukandarModel = sequelize.define<DukandarInstance>(
@@ -58,12 +57,5 @@ DukandarModel.hasMany(ProductModel, {
 ProductModel.belongsTo(DukandarModel, {
     as: "Dukandar",
 });
-
-(async () => {
-    await DukandarModel.sync({ alter: true });
-    await ProductModel.sync({ alter: true });
-    await ProductFeatureModel.sync({ alter: true });
-    await Address.sync({ alter: true });
-})();
 
 export default DukandarModel;

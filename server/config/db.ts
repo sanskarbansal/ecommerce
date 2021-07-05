@@ -1,6 +1,4 @@
 import { Sequelize } from "sequelize";
-// import AddressModel from "../models/Address";
-// import DukandarModel from "../models/Dukandar";
 
 const sequelize = new Sequelize({
     host: process.env.DB_URL,

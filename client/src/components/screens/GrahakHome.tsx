@@ -1,4 +1,5 @@
 import { Layout, Menu } from "antd";
+import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import GrahakRoutes from "../routes/GrahakRoutes";
@@ -19,6 +20,16 @@ const menuLinks = [
         url: "/register",
         onlyLogout: true,
     },
+    {
+        name: "View Cart",
+        url: "/viewCart",
+        onlyLogin: true,
+    },
+    {
+        name: "Logout",
+        url: "/logout",
+        onlyLogin: true,
+    },
 ];
 
 export default function GrahakHome() {
@@ -28,9 +39,9 @@ export default function GrahakHome() {
             <Header>
                 <div className="logo" />
                 <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["/"]}>
-                    {menuLinks.map(({ name, url, onlyLogout }) => {
-                        if (onlyLogout && grahak.user) {
-                            return <></>;
+                    {menuLinks.map(({ name, url, onlyLogout, onlyLogin }) => {
+                        if ((grahak.user && onlyLogout) || (!grahak.user && onlyLogin)) {
+                            return <React.Fragment key={name}></React.Fragment>;
                         }
                         return (
                             <Menu.Item key={url}>

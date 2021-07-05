@@ -39,9 +39,8 @@ export default function ProductListGrahak() {
         <>
             <div className="d-flex" style={{ marginTop: "20px", justifyContent: "center" }}>
                 {products.map((item: any) => (
-                    <Link to={`/product/${item.id}`}>
+                    <Link key={item.id} to={`/product/${item.id}`}>
                         <Card
-                            key={item.id}
                             style={{ width: 350, maxHeight: 800 }}
                             cover={
                                 <img width="300px" height="300px" style={{ objectFit: "cover" }} alt={item.name} src={apiUrl + "/products/" + item.imageName} />

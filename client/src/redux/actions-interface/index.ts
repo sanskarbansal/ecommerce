@@ -2,5 +2,5 @@ import { ActionTypesDukandar, ActionTypesGrahak } from "../action-types/action-t
 import * as DukandarActions from "./dukandar-interface";
 import * as GrahakActions from "./grahak-interface";
 export type ActionDukandar = DukandarActions.SetUserAction | DukandarActions.SetProducts | DukandarActions.LogoutDukandar;
-export type ActionGrahak = GrahakActions.SetUserAction;
+export type ActionGrahak = GrahakActions.SetUserAction | GrahakActions.LogoutAction;
 export { ActionTypesDukandar, ActionTypesGrahak };

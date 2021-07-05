@@ -1,5 +1,5 @@
 require("dotenv").config();
-import db from "./config/db";
+require("./config/syncDb");
 import redis from "redis";
 import express from "express";
 import session from "express-session";
@@ -41,6 +41,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/", api);
 app.use(errorHandler);
+
 app.listen(PORT, () => {
     console.log("SERVER SUCCESSFULLY STARTED ON PORT: ", PORT);
 });
